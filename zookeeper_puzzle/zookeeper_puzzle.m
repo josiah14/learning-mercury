@@ -40,7 +40,9 @@
     pet :: pets
   ).
 
-:- pred race(races :: out) is multi.
+:- pred race(races).
+:- mode race(out) is multi.
+:- mode race(in) is det.
 race(english).
 race(japanese).
 race(spanish).
@@ -52,7 +54,9 @@ color(red).
 color(blue).
 color(green).
 
-:- pred pet(pets :: out) is multi.
+:- pred pet(pets).
+:- mode pet(out) is multi.
+:- mode pet(in) is det.
 pet(jaguar).
 pet(snail).
 pet(zebra).
