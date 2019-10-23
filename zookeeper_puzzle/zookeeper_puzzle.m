@@ -17,6 +17,8 @@
 % - The snail keeper lives to the left of the blue house.
 % - Assume the houses form a row, and not a circle or triangle.
 % ^ This last fact added for clarity about the problem to be solved.
+%
+% Who keeps the zebra?
 
 :- type races
   ---> english
@@ -88,8 +90,17 @@ row(A, B, C) :-
 row([A, B, C] :: out) :-
   row(A, B, C).
 
+:- pred zebra_owner(races :: out) is nondet.
+zebra_owner(ZebraOwner :: out) :-
+  row(A, B, C)
+  , (
+      (A^pet = zebra , A^race = ZebraOwner)
+    ; (B^pet = zebra , B^race = ZebraOwner)
+    ; (C^pet = zebra , C^race = ZebraOwner)
+  ).
+
 main(!IO) :-
-  solutions(row, Solutions)
+  solutions(zebra_owner, Solutions)
   , (
     if Solutions = []
     then
@@ -97,8 +108,8 @@ main(!IO) :-
     else
       foldl(
         (
-          pred(L :: in, !.IO::di, !:IO::uo) is det :-
-            io.print(L, !IO)
+          pred(ZebraOwner :: in, !.IO::di, !:IO::uo) is det :-
+            io.print(ZebraOwner, !IO)
             , io.nl(!IO)
         ),
         Solutions,
